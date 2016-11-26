@@ -1,3 +1,10 @@
+
+/*
+ * Producer
+ * 
+ * Adds images to shared container on defined interval.
+ */
+
 package screenshare.server;
 
 import java.awt.AWTException;
@@ -24,7 +31,9 @@ public class ImageProducer implements Runnable {
 			while( true ) {
 				// Only produce more images if the current queue does not hava 20 images
 				if( this.capturedImages.size() < 20) {
+					UtilTimer.start( "CaptureImage" );
 					image = ScreenCaptureHelper.capture(param.x, param.y, param.width, param.height);
+					System.out.println( "Time to capture image: " + UtilTimer.stop( "CaptureImage") );
 					ImageIcon icon = new ImageIcon(image);
 					
 					this.capturedImages.put( icon );
@@ -32,7 +41,10 @@ public class ImageProducer implements Runnable {
 				}
 				Thread.sleep( param.delay );
 			}
-		} catch (AWTException | InterruptedException e) {
+		} catch ( InterruptedException e) {
+			System.out.println("Could not get the image");
+			e.printStackTrace();
+		} catch( AWTException e ){
 			System.out.println("Could not get the image");
 			e.printStackTrace();
 		}

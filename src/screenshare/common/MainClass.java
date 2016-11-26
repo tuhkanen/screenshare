@@ -12,6 +12,9 @@ import screenshare.server.ShareServer;
 public class MainClass {
 
 	public static void main(String[] args) {
+		System.out.println("Setting property: headless false");
+		System.setProperty("java.awt.headless", "false");
+		
 			System.out.println("Start");
 			System.out.println("Args length: " + args.length );
 			
@@ -38,11 +41,11 @@ public class MainClass {
 				} else {
 					System.out.println("Unknown type");
 					System.out.println("Args: [type] [port], Example: server 9999");
-					System.out.println("Args: [type] [port] [x] [y] [width] [height], Example: client 9999 192.168.1.10 200 200 300 300");
+					System.out.println("Args: [type] [port] [x] [y] [width] [height] [fps], Example: client 9999 192.168.1.10 200 200 300 300 30");
 				}
 			} catch (Exception e1) {
 				System.out.println("Args: [type] [port], Example: server 9999");
-				System.out.println("Args: [type] [port] [x] [y] [width] [height], Example: client 9999 192.168.1.10 200 200 300 300");
+				System.out.println("Args: [type] [port] [x] [y] [width] [height] [fps], Example: client 9999 192.168.1.10 200 200 300 300 30");
 				e1.printStackTrace();
 			}
 	}

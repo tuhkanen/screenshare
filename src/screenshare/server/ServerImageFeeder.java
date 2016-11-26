@@ -1,7 +1,10 @@
+
+/*
+ * Class to take screenshots and feed them to the socket channel
+ */
+
 package screenshare.server;
 
-import java.awt.AWTException;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,14 +12,9 @@ import java.nio.channels.SocketChannel;
 import java.util.LinkedList;
 import java.util.concurrent.SynchronousQueue;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import screenshare.common.Parameters;
-
-/*
- * Class to take screenshots and feed them to the socket channel
- */
 
 public class ServerImageFeeder implements Runnable  {
 
@@ -60,8 +58,12 @@ public class ServerImageFeeder implements Runnable  {
 						for( int i=0; i < this.capturedImages.size() || i < 10; i++ ) {
 							tmp.add( this.capturedImages.poll() );
 						}
-						if( !tmp.isEmpty() )
+						if( !tmp.isEmpty() ) {
+							UtilTimer.start("WriteToSocket");
 							oos.writeObject( tmp );
+							System.out.println( "Time to write to socket" + UtilTimer.stop("WriteToSocket") );
+						}
+
 						
 						System.out.println("S(" + tmp.size() + ")");
 						Thread.sleep( param.delay );
@@ -70,8 +72,10 @@ public class ServerImageFeeder implements Runnable  {
 					System.out.println("Could not read the parameters!");
 					e1.printStackTrace();
 				}
-			} catch (IOException | ClassNotFoundException e) {
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch ( ClassNotFoundException e ) {
 				e.printStackTrace();
 			}
 		

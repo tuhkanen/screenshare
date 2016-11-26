@@ -1,3 +1,7 @@
+/*
+ * Server class that will read incoming connections.
+ */
+
 package screenshare.server;
 
 import java.io.IOException;
