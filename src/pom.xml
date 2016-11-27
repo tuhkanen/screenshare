@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>FSScreenShare</groupId>
   <artifactId>FSSS</artifactId>
-  <version>0.0.1-SNAPSHOT-refactor</version>
+  <version>0.0.2-SNAPSHOT-stable</version>
   <name>FlightSimScreenShare</name>
   
   <build>
