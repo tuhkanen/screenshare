@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import screenshare.common.ImageWrapper;
 import screenshare.common.Parameters;
 
 
@@ -41,13 +42,13 @@ public class ShareClient {
 	    		//System.out.println("Received: '" + s + "'");
 	    		
 	    		//ImageIcon icon;
-	    		LinkedList<ImageIcon> tmp = new LinkedList<ImageIcon>();
+	    		LinkedList<ImageWrapper> tmp = new LinkedList<ImageWrapper>();
 	    		/*
 	    		 * Keep reading the new image and updating the image on the screen.
 	    		 */
 	    		while( true ) {
 		    		//image = ImageIO.read( ois );
-	    			tmp = (LinkedList<ImageIcon>)ois.readObject();
+	    			tmp = (LinkedList<ImageWrapper>)ois.readObject();
 	    			//icon.getImage();
 		    		//image = (BufferedImage)ois.readObject();
 		    		if ( tmp == null ) {
@@ -55,9 +56,9 @@ public class ShareClient {
 		    			System.out.println("c");
 		    		} else {
 		    			//System.out.println( "Received image: " + image.getHeight() + "/" + image.getWidth() );
-		    			for( ImageIcon icon : tmp ) {
-		    				if( icon != null ) {
-				    			display.show( icon.getImage() );
+		    			for( ImageWrapper image : tmp ) {
+		    				if( image != null ) {
+				    			display.show( image.getImage() );
 				    			Thread.sleep( param.delay );		    					
 		    				} else {
 		    				  System.out.println("n");

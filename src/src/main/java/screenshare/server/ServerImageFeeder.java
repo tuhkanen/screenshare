@@ -10,20 +10,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.channels.SocketChannel;
 import java.util.LinkedList;
-import java.util.concurrent.SynchronousQueue;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-import javax.swing.ImageIcon;
-
+import screenshare.common.ImageWrapper;
 import screenshare.common.Parameters;
 
 public class ServerImageFeeder implements Runnable  {
 
 	SocketChannel sChannel;
-	SynchronousQueue<ImageIcon> capturedImages;
+	ConcurrentLinkedQueue<ImageWrapper> capturedImages;
 	
 	public ServerImageFeeder(SocketChannel sChannel) {
 			this.sChannel = sChannel;
-			this.capturedImages = new SynchronousQueue<ImageIcon>();
+			this.capturedImages = new ConcurrentLinkedQueue<ImageWrapper>();
 	}
 	
 	public void run() {
@@ -54,7 +54,7 @@ public class ServerImageFeeder implements Runnable  {
 						//ImageIcon icon = new ImageIcon(image);
 						//ImageIO.write(image, "png", oos);
 						
-						LinkedList<ImageIcon> tmp = new LinkedList<ImageIcon>();
+						LinkedList<ImageWrapper> tmp = new LinkedList<ImageWrapper>();
 						for( int i=0; i < this.capturedImages.size() || i < 10; i++ ) {
 							tmp.add( this.capturedImages.poll() );
 						}

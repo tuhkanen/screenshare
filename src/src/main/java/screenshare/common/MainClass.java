@@ -1,6 +1,6 @@
 
 /*
- * Class to launch the applicaiton as server or client based on the parameters
+ * Class to launch the application as server or client based on the parameters
  */
 
 package screenshare.common;
